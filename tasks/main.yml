@@ -1,0 +1,26 @@
+---
+# installs packer.io
+#
+# XXX:
+#	implement checksum check https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_SHA256SUMS
+
+- name: create (download) directory {{ packer_download_path }}
+  file:
+    path: "{{ packer_download_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode:  0755
+
+- name: download version {{ packer_version }} of packer
+  get_url:
+    url: "{{ packer_url_base }}/{{ packer_version }}/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip"
+    dest: "{{ packer_download_path }}/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip"
+    mode: 0775
+
+- name: unpack to /usr/local/bin/packer
+  unarchive:
+    src: "{{ packer_download_path }}/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip"
+    dest: /usr/local/bin/
+    remote_src: True
+
