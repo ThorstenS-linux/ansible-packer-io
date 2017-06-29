@@ -23,6 +23,6 @@ installs packer from HashiCorp under /usr/local/bin/
     https_proxy: http://proxy:3128/
 
   roles:
-    - packer-io
+    - ThorstenS-linux.packer-io
 
 ```
