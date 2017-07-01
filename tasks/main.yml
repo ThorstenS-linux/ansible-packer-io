@@ -1,6 +1,9 @@
 ---
 # installs packer.io - with checksum verify.
 
+- name: Ensure unzip is installed.
+  package: name=unzip state=present
+
 - name: create (download) directory {{ packer_download_path }}
   file:
     path: "{{ packer_download_path }}"
