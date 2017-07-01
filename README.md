@@ -1,5 +1,5 @@
 # ansible-packer-io
-installs packer from HashiCorp under /usr/local/bin/
+installs sha256 verified packer from HashiCorp under /usr/local/bin/
 
 ## example
 
@@ -18,7 +18,7 @@ installs packer from HashiCorp under /usr/local/bin/
   vars:
     packer_version: '1.0.2'
 
-  environment:                                                                                                          
+  environment:
     http_proxy: http://proxy:3128/
     https_proxy: http://proxy:3128/
 

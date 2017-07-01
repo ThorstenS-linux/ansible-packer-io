@@ -1,8 +1,5 @@
 ---
-# installs packer.io
-#
-# XXX:
-#	implement checksum check https://releases.hashicorp.com/packer/1.0.2/packer_1.0.2_SHA256SUMS
+# installs packer.io - with checksum verify.
 
 - name: create (download) directory {{ packer_download_path }}
   file:
@@ -12,11 +9,23 @@
     group: root
     mode:  0755
 
+- name: download sha256 file for packer version {{ packer_version }}
+  get_url:
+    url: "https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_SHA256SUMS"
+    dest: "{{ packer_download_path }}/packer_{{ packer_version }}_SHA256SUMS"
+    mode: 0775
+
+- name: extract sha256sum hash
+  command: "awk '/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip/{print $1}' {{ packer_download_path }}/packer_{{ packer_version }}_SHA256SUMS"
+  register: sha256sum
+  changed_when: false
+
 - name: download version {{ packer_version }} of packer
   get_url:
     url: "{{ packer_url_base }}/{{ packer_version }}/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip"
     dest: "{{ packer_download_path }}/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip"
     mode: 0775
+    checksum: "sha256:{{ sha256sum.stdout }}"
 
 - name: unpack to /usr/local/bin/packer
   unarchive:
