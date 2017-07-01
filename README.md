@@ -1,5 +1,5 @@
 # ansible-packer-io
-installs sha256 verified packer from HashiCorp under /usr/local/bin/
+installs sha256sum verified packer from HashiCorp under /usr/local/bin/
 
 ## example
 
