@@ -3,7 +3,7 @@ galaxy_info:
   author: ThorstenS-linux
   description: this role installs sha256sum verified packer.io from upstream
   license: GPLv3
-  min_ansible_version: 1.9.6
+  min_ansible_version: 2.0
   platforms:
     - name: Debian
       versions:
