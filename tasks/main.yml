@@ -35,4 +35,3 @@
     src: "{{ packer_download_path }}/packer_{{ packer_version }}_{{ ansible_system|lower }}_{{ packer_machine_map[ansible_machine] }}.zip"
     dest: /usr/local/bin/
     remote_src: True
-
