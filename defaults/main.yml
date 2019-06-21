@@ -1,4 +1,4 @@
 ---
 
 packer_url_base: 'https://releases.hashicorp.com/packer'
-packer_version: '1.0.2'
+packer_version: '1.4.1'
